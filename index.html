@@ -600,79 +600,86 @@
 
   @media (max-width:1023px), (hover:none), (pointer:coarse){
     :root{
-      --bottomSpace:104px;
+      --bottomSpace:84px;
       --maxw:none;
     }
 
     body{
       background:
-        radial-gradient(circle at -10% 0%, rgba(108,150,144,.31) 0%, transparent 34%),
-        radial-gradient(circle at 112% 0%, rgba(142,165,102,.30) 0%, transparent 36%),
-        radial-gradient(circle at 100% 100%, rgba(210,160,95,.22) 0%, transparent 40%),
+        radial-gradient(circle at -10% 0%, rgba(108,150,144,.26) 0%, transparent 34%),
+        radial-gradient(circle at 112% 0%, rgba(142,165,102,.25) 0%, transparent 36%),
+        radial-gradient(circle at 100% 100%, rgba(210,160,95,.18) 0%, transparent 40%),
         linear-gradient(135deg,var(--cream),var(--cream2));
     }
 
     .wrap{
       width:100%;
       max-width:none;
-      padding:8px 8px calc(var(--bottomSpace) + 26px);
+      padding:6px 6px calc(var(--bottomSpace) + 22px);
     }
 
     .hero{
       display:block;
-      padding:18px 16px;
-      border-radius:26px;
+      padding:14px 13px;
+      border-radius:21px;
     }
 
     .heroInner{
       grid-template-columns:1fr;
-      gap:14px;
+      gap:11px;
     }
 
     .brand{
       grid-template-columns:auto 1fr;
-      gap:12px;
+      gap:10px;
     }
 
     .logo{
-      width:48px;
-      height:48px;
-      border-radius:18px;
+      width:38px;
+      height:38px;
+      border-radius:14px;
       box-shadow:
-        0 0 0 8px rgba(108,150,144,.10),
-        0 10px 24px rgba(108,150,144,.20);
+        0 0 0 6px rgba(108,150,144,.10),
+        0 8px 19px rgba(108,150,144,.18);
     }
 
     .logo::before{
-      width:14px;
-      height:28px;
+      width:11px;
+      height:22px;
     }
 
     h1{
-      font-size:31px;
+      font-size:25px;
       line-height:1.18;
       letter-spacing:.02em;
     }
 
     .sub{
-      margin-top:8px;
-      font-size:18px;
+      margin-top:6px;
+      font-size:14px;
       line-height:1.5;
     }
 
     .chip{
       width:max-content;
-      min-height:40px;
-      padding:8px 14px;
-      font-size:17px;
+      min-height:32px;
+      padding:6px 11px;
+      font-size:14px;
+      gap:8px;
+    }
+
+    .chipDot{
+      width:9px;
+      height:9px;
+      box-shadow:0 0 0 5px rgba(142,165,102,.16);
     }
 
     .card{
-      margin-top:10px;
-      padding:28px 14px 30px;
-      border-radius:28px;
+      margin-top:8px;
+      padding:22px 11px 24px;
+      border-radius:22px;
       background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.56));
-      backdrop-filter:blur(18px);
+      backdrop-filter:blur(16px);
     }
 
     .card::before{
@@ -683,10 +690,10 @@
     .card::after{
       content:"";
       display:block;
-      right:-220px;
-      top:150px;
-      width:360px;
-      height:360px;
+      right:-176px;
+      top:120px;
+      width:288px;
+      height:288px;
     }
 
     .card > .sectionTitle{
@@ -694,13 +701,14 @@
     }
 
     .q{
-      margin-top:30px;
+      margin-top:24px;
     }
 
     label{
-      margin:0 0 12px;
-      font-size:32px;
+      margin:0 0 10px;
+      font-size:26px;
       line-height:1.25;
+      letter-spacing:.03em;
     }
 
     .card > .q:has(#trainingDisplay) > label{
@@ -715,164 +723,169 @@
     input[type="text"],
     input[type="number"],
     input[type="password"]{
-      height:82px;
-      min-height:82px;
-      border-radius:22px;
+      height:51px;
+      min-height:51px;
+      border-radius:14px;
       border-width:2px;
-      padding:0 62px 0 20px;
-      font-size:30px;
-      line-height:1.15;
+      padding:0 45px 0 14px;
+      font-size:22px;
+      line-height:1.12;
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.88),
-        0 10px 24px rgba(65,43,25,.07);
+        0 8px 19px rgba(65,43,25,.07);
     }
 
     select{
       text-align:left;
       text-align-last:left;
-      padding-right:62px;
+      padding-right:45px;
       background-position:
-        calc(100% - 36px) 50%,
-        calc(100% - 23px) 50%,
-        calc(100% - 58px) 50%;
+        calc(100% - 29px) 50%,
+        calc(100% - 18px) 50%,
+        calc(100% - 46px) 50%;
       background-size:
-        13px 13px,
-        13px 13px,
-        1px 38px;
+        10px 10px,
+        10px 10px,
+        1px 30px;
     }
 
     .trainBox{
       min-height:auto;
       grid-template-columns:1fr;
-      gap:14px;
-      padding:18px;
-      border-radius:24px;
+      gap:11px;
+      padding:14px;
+      border-radius:19px;
       background:linear-gradient(135deg,rgba(142,165,102,.13),rgba(255,255,255,.58));
     }
 
     .trainText .small{
-      font-size:18px;
+      font-size:14px;
     }
 
     .trainText .big{
-      font-size:32px;
+      font-size:26px;
       line-height:1.2;
     }
 
     .trainBox .btn,
     #btnOpenSheet{
       width:100%;
-      height:70px;
-      min-height:70px;
-      font-size:26px;
-      border-radius:22px;
+      height:48px;
+      min-height:48px;
+      font-size:19px;
+      border-radius:14px;
     }
 
     .lessonBlock{
-      padding:22px 14px;
-      border-radius:26px;
+      padding:18px 11px;
+      border-radius:21px;
       background:linear-gradient(145deg,rgba(255,250,240,.84),rgba(255,255,255,.48));
-      box-shadow:0 14px 36px rgba(65,43,25,.075);
+      box-shadow:0 11px 29px rgba(65,43,25,.07);
     }
 
     .lessonTitle{
-      margin-bottom:24px;
-      font-size:36px;
+      gap:11px;
+      margin-bottom:19px;
+      font-size:29px;
       line-height:1.2;
     }
 
     .lessonTitle::before{
-      width:13px;
-      height:36px;
+      width:10px;
+      height:29px;
+      box-shadow:0 0 0 7px rgba(142,165,102,.12);
     }
 
     .numberPair{
       grid-template-columns:1fr;
-      gap:24px;
+      gap:19px;
     }
 
     .numberPair label{
-      font-size:32px;
-    }
-
-    .numberPair input{
-      height:82px;
-      min-height:82px;
-      border-radius:22px;
-      font-size:30px;
-      padding:0 20px;
-    }
-
-    .btn{
-      height:70px;
-      min-height:70px;
-      border-radius:22px;
       font-size:26px;
     }
 
+    .numberPair input{
+      height:51px;
+      min-height:51px;
+      border-radius:14px;
+      font-size:22px;
+      padding:0 14px;
+    }
+
+    .btn{
+      height:48px;
+      min-height:48px;
+      border-radius:14px;
+      font-size:19px;
+      padding:0 18px;
+    }
+
     .divider{
-      margin:30px 0;
+      margin:24px 0;
     }
 
     .sticky{
-      padding:10px 8px calc(10px + env(safe-area-inset-bottom));
+      padding:8px 6px calc(8px + env(safe-area-inset-bottom));
     }
 
     .stickyInner{
       width:100%;
       max-width:none;
-      gap:10px;
+      gap:8px;
     }
 
     .sticky .btn{
       width:100%;
-      height:72px;
-      min-height:72px;
-      border-radius:24px;
-      font-size:25px;
+      height:50px;
+      min-height:50px;
+      border-radius:16px;
+      font-size:19px;
     }
 
     .sheetMask{
       align-items:flex-end;
-      padding:8px;
+      padding:6px;
     }
 
     .sheet{
-      max-height:calc(100vh - 16px);
-      border-radius:28px;
+      max-height:calc(100vh - 12px);
+      border-radius:22px;
     }
 
     .sheetHeader{
-      padding:18px;
+      padding:14px;
     }
 
     .sheetHeader .t{
-      font-size:30px;
+      font-size:24px;
     }
 
     .sheetHeader .btn{
       width:auto;
-      min-width:112px;
-      height:70px;
-      min-height:70px;
-      font-size:24px;
-      border-radius:22px;
+      min-width:90px;
+      height:48px;
+      min-height:48px;
+      font-size:19px;
+      border-radius:14px;
     }
 
     .sheetBody{
-      padding:18px 14px 24px;
+      padding:14px 11px 19px;
     }
 
     .sheetBody .q{
-      margin-top:30px;
+      margin-top:24px;
     }
 
     .modalActions{
-      gap:10px;
+      gap:8px;
+      margin-top:18px;
     }
 
     .hint{
-      font-size:20px;
+      font-size:16px;
+      line-height:1.6;
     }
 
     .toast{
@@ -881,24 +894,24 @@
       bottom:auto;
       transform:translate(-50%, -50%);
       width:min(88vw,720px);
-      padding:38px 30px;
-      border-radius:30px;
+      padding:30px 24px;
+      border-radius:24px;
     }
 
     .toast .msg{
-      font-size:54px;
+      font-size:43px;
       line-height:1.25;
     }
   }
 
   @media (max-width:390px){
     h1{
-      font-size:29px;
+      font-size:23px;
     }
 
     label,
     .numberPair label{
-      font-size:30px;
+      font-size:24px;
     }
 
     select,
@@ -906,15 +919,19 @@
     input[type="number"],
     input[type="password"],
     .numberPair input{
-      font-size:28px;
+      font-size:22px;
+      height:50px;
+      min-height:50px;
     }
 
     .trainText .big{
-      font-size:30px;
+      font-size:24px;
     }
 
     .sticky .btn{
-      font-size:24px;
+      font-size:18px;
+      height:49px;
+      min-height:49px;
     }
   }
 
