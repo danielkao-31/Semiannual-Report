@@ -1988,23 +1988,94 @@ input:focus{
   </div>
 
   <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwrKwInJYtEC66KE9jxm5bbBonn35z8G1j_sUCPniBItciGez2gv1WVdkrMDYoPywzc/exec';
+
     const $ = (id) => document.getElementById(id);
 
     let trainingText = '';
     let careAreaToVenues = {};
     let adminPass = '';
 
+    function apiCall(api, params = {}){
+      return new Promise((resolve, reject)=>{
+        const callbackName =
+          '__gas_jsonp_' +
+          Date.now().toString(36) +
+          '_' +
+          Math.random().toString(36).slice(2);
+
+        const url = new URL(API_URL);
+
+        url.searchParams.set('api', api);
+        url.searchParams.set('callback', callbackName);
+
+        Object.keys(params || {}).forEach((key)=>{
+          const value = params[key];
+
+          if (value === undefined || value === null) return;
+
+          url.searchParams.set(key, String(value));
+        });
+
+        const script = document.createElement('script');
+        let done = false;
+
+        const timer = setTimeout(()=>{
+          cleanup();
+          reject(new Error('API 連線逾時'));
+        }, 30000);
+
+        function cleanup(){
+          if (done) return;
+          done = true;
+
+          clearTimeout(timer);
+
+          try {
+            delete window[callbackName];
+          } catch (e) {
+            window[callbackName] = undefined;
+          }
+
+          if (script && script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }
+
+        window[callbackName] = (data)=>{
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror = ()=>{
+          cleanup();
+          reject(new Error('API 連線失敗，請確認 GAS 已重新部署為新版'));
+        };
+
+        script.src = url.toString();
+        document.body.appendChild(script);
+      });
+    }
+
     function showToast(msg, ok=true){
       const t = $('toast');
-      $('toastMsg').textContent = msg;
+      const text = String(msg ?? '');
+
+      $('toastMsg').textContent = text;
+
       t.classList.remove('ok','bad','show');
       t.classList.add(ok ? 'ok' : 'bad', 'show');
+
       clearTimeout(showToast._tm);
-      showToast._tm = setTimeout(()=>t.classList.remove('show'), 2600);
+
+      showToast._tm = setTimeout(()=>{
+        t.classList.remove('show');
+      }, 2600);
     }
 
     function setLoadState(text){
-      $('loadState').textContent = text;
+      const el = $('loadState');
+      if (el) el.textContent = text;
     }
 
     function setSelectOptions(selectEl, arr, placeholder='請選擇'){
@@ -2139,8 +2210,8 @@ input:focus{
     function init(){
       setLoadState('載入中');
 
-      apiCall(...)
-        .withSuccessHandler((res)=>{
+      apiCall('initData')
+        .then((res)=>{
           if (!res || !res.ok){
             setLoadState('失敗');
             showToast(res?.message || '初始化失敗', false);
@@ -2157,11 +2228,10 @@ input:focus{
 
           setLoadState('就緒');
         })
-        .withFailureHandler((err)=>{
+        .catch((err)=>{
           setLoadState('失敗');
-          showToast(String(err), false);
-        })
-        .initData();
+          showToast(String(err.message || err), false);
+        });
     }
 
     $('careArea').addEventListener('change', updateVenueByCareArea);
@@ -2173,8 +2243,10 @@ input:focus{
 
       setSubmitting(true);
 
-      google.script.run
-        .withSuccessHandler((res)=>{
+      apiCall('verifyPassword', {
+        password: p
+      })
+        .then((res)=>{
           setSubmitting(false);
 
           if (!res || !res.ok){
@@ -2193,11 +2265,10 @@ input:focus{
           openSheet();
           showToast('已進入設定模式', true);
         })
-        .withFailureHandler((err)=>{
+        .catch((err)=>{
           setSubmitting(false);
-          showToast(String(err), false);
-        })
-        .verifyPassword(p);
+          showToast(String(err.message || err), false);
+        });
     });
 
     $('btnCloseSheet').addEventListener('click', closeSheet);
@@ -2219,8 +2290,11 @@ input:focus{
 
       setSubmitting(true);
 
-      google.script.run
-        .withSuccessHandler((res)=>{
+      apiCall('setTrainingText', {
+        trainingText: newText,
+        password: adminPass
+      })
+        .then((res)=>{
           setSubmitting(false);
 
           if (!res || !res.ok){
@@ -2234,11 +2308,10 @@ input:focus{
           showToast('已套用年度訓練', true);
           closeSheet();
         })
-        .withFailureHandler((err)=>{
+        .catch((err)=>{
           setSubmitting(false);
-          showToast(String(err), false);
-        })
-        .setTrainingText(newText, adminPass);
+          showToast(String(err.message || err), false);
+        });
     });
 
     $('btnClearTraining').addEventListener('click', ()=>{
@@ -2246,8 +2319,10 @@ input:focus{
 
       setSubmitting(true);
 
-      google.script.run
-        .withSuccessHandler((res)=>{
+      apiCall('clearTrainingText', {
+        password: adminPass
+      })
+        .then((res)=>{
           setSubmitting(false);
 
           if (!res || !res.ok){
@@ -2261,11 +2336,10 @@ input:focus{
           showToast('已清除年度訓練', true);
           closeSheet();
         })
-        .withFailureHandler((err)=>{
+        .catch((err)=>{
           setSubmitting(false);
-          showToast(String(err), false);
-        })
-        .clearTrainingText(adminPass);
+          showToast(String(err.message || err), false);
+        });
     });
 
     $('btnChangePwd').addEventListener('click', ()=>{
@@ -2280,8 +2354,11 @@ input:focus{
 
       setSubmitting(true);
 
-      google.script.run
-        .withSuccessHandler((res)=>{
+      apiCall('changePassword', {
+        oldPassword: oldP,
+        newPassword: newP
+      })
+        .then((res)=>{
           setSubmitting(false);
 
           if (!res || !res.ok){
@@ -2297,11 +2374,10 @@ input:focus{
 
           showToast('密碼已修改', true);
         })
-        .withFailureHandler((err)=>{
+        .catch((err)=>{
           setSubmitting(false);
-          showToast(String(err), false);
-        })
-        .changePassword(oldP, newP);
+          showToast(String(err.message || err), false);
+        });
     });
 
     $('btnReset').addEventListener('click', ()=>{
@@ -2327,8 +2403,10 @@ input:focus{
 
       setSubmitting(true);
 
-      google.script.run
-        .withSuccessHandler((res)=>{
+      apiCall('submitReport', {
+        payload: JSON.stringify(payloadSnapshot)
+      })
+        .then((res)=>{
           setSubmitting(false);
 
           if (!res || !res.ok){
@@ -2339,11 +2417,10 @@ input:focus{
           showToast(res.message || '送出成功', true);
           resetForm();
         })
-        .withFailureHandler((err)=>{
+        .catch((err)=>{
           setSubmitting(false);
-          showToast(String(err), false);
-        })
-        .submitReport(payloadSnapshot);
+          showToast(String(err.message || err), false);
+        });
     });
 
     init();
