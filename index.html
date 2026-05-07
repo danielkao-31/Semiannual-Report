@@ -592,7 +592,7 @@
 
   .toast .msg{
     color:var(--text2);
-    font-size:50px;
+    font-size:60px;
     line-height:1.25;
     font-weight:950;
     text-align:center;
@@ -844,48 +844,121 @@
     }
 
     .sheetMask{
-      align-items:flex-end;
-      padding:6px;
+      align-items:flex-start;
+      justify-content:center;
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      padding:
+        calc(10px + env(safe-area-inset-top))
+        6px
+        calc(78px + env(safe-area-inset-bottom))
+        6px;
     }
 
     .sheet{
-      max-height:calc(100vh - 12px);
+      width:100%;
+      max-width:none;
+      height:auto;
+      max-height:none;
+      display:block;
+      overflow:visible;
       border-radius:22px;
     }
 
     .sheetHeader{
-      padding:14px;
+      position:sticky;
+      top:0;
+      z-index:5;
+      padding:12px 14px;
+      background:rgba(255,250,241,.96);
+      backdrop-filter:blur(14px);
     }
 
     .sheetHeader .t{
       font-size:24px;
+      line-height:1.2;
     }
 
     .sheetHeader .btn{
       width:auto;
-      min-width:90px;
+      min-width:86px;
       height:48px;
       min-height:48px;
-      font-size:19px;
+      font-size:18px;
       border-radius:14px;
     }
 
     .sheetBody{
-      padding:14px 11px 19px;
+      display:block;
+      height:auto;
+      max-height:none;
+      overflow:visible;
+      padding:14px 11px 24px;
     }
 
     .sheetBody .q{
-      margin-top:24px;
+      margin-top:20px;
     }
 
-    .modalActions{
-      gap:8px;
-      margin-top:18px;
+    .sheetBody label{
+      font-size:24px;
+      margin-bottom:8px;
+    }
+
+    .sheetBody select,
+    .sheetBody input[type="text"],
+    .sheetBody input[type="number"],
+    .sheetBody input[type="password"]{
+      height:50px;
+      min-height:50px;
+      border-radius:14px;
+      font-size:22px;
+      padding:0 44px 0 14px;
+    }
+
+    .sheetBody select{
+      background-position:
+        calc(100% - 29px) 50%,
+        calc(100% - 18px) 50%,
+        calc(100% - 45px) 50%;
+      background-size:
+        10px 10px,
+        10px 10px,
+        1px 30px;
+    }
+
+    .sheetBody .lessonTitle{
+      font-size:28px;
+      margin:0 0 18px;
+    }
+
+    .sheetBody .lessonTitle::before{
+      width:10px;
+      height:28px;
+      box-shadow:0 0 0 6px rgba(142,165,102,.12);
     }
 
     .hint{
       font-size:16px;
-      line-height:1.6;
+      line-height:1.55;
+      margin-top:14px;
+    }
+
+    .modalActions{
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:16px;
+    }
+
+    .modalActions .btn,
+    .sheetBody .btn,
+    #btnApplyManual,
+    #btnClearTraining,
+    #btnChangePwd{
+      height:50px;
+      min-height:50px;
+      border-radius:14px;
+      font-size:20px;
     }
 
     .toast{
@@ -899,7 +972,7 @@
     }
 
     .toast .msg{
-      font-size:35px;
+      font-size:43px;
       line-height:1.25;
     }
   }
@@ -932,6 +1005,23 @@
       font-size:18px;
       height:49px;
       min-height:49px;
+    }
+
+    .sheetHeader .t{
+      font-size:22px;
+    }
+
+    .sheetBody label{
+      font-size:22px;
+    }
+
+    .sheetBody select,
+    .sheetBody input[type="text"],
+    .sheetBody input[type="number"],
+    .sheetBody input[type="password"]{
+      font-size:20px;
+      height:48px;
+      min-height:48px;
     }
   }
 
@@ -1143,12 +1233,25 @@
       font-size:26px;
     }
 
+    .sheetMask{
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      padding:18px;
+    }
+
     .sheet{
+      width:min(760px,100%);
       max-width:760px;
+      max-height:92vh;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
       border-radius:30px;
     }
 
     .sheetHeader{
+      position:static;
       padding:20px 24px;
     }
 
@@ -1164,11 +1267,28 @@
     }
 
     .sheetBody{
+      flex:1 1 auto;
+      overflow:auto;
       padding:24px 28px 30px;
     }
 
     .sheetBody .q{
       margin-top:28px;
+    }
+
+    .sheetBody label{
+      font-size:28px;
+    }
+
+    .sheetBody select,
+    .sheetBody input[type="text"],
+    .sheetBody input[type="number"],
+    .sheetBody input[type="password"]{
+      height:78px;
+      min-height:78px;
+      border-radius:22px;
+      font-size:26px;
+      padding:0 64px 0 22px;
     }
 
     .hint{
