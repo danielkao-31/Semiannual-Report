@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>半年度訓練夜間班人數回報系統</title>
+
+  <style>
+    :root{
+      --page:#efe4d3;
+      --page2:#f8f0e5;
+      --panel:#fff9ef;
+      --section:#fffdf8;
+      --field:#ffffff;
+
+      --ink:#2f241f;
+      --label:#294a45;
+      --muted:#8a7a68;
+      --brown:#6d452d;
+
+      --green:#8fa667;
+      --green2:#b9ca9a;
+      --teal:#6d9892;
+      --danger:#c94f43;
+
+      --line:#d6c8b9;
+
+      --shadow-panel:0 18px 46px rgba(54,35,18,.14);
+      --shadow-field:0 12px 26px rgba(45,30,18,.16);
+
+      --maxw:900px;
+      --bottom:132px;
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    html,
+    body{
+      width:100%;
+      min-height:100%;
+      margin:0;
+      overflow-x:hidden;
+    }
+
+    body{
+      color:var(--ink);
+      background:linear-gradient(135deg,var(--page),var(--page2));
+      font-family:
+        "Noto Sans TC",
+        "PingFang TC",
+        "Microsoft JhengHei",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      position:relative;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      left:-240px;
+      bottom:-240px;
+      width:560px;
+      height:560px;
+      border-radius:140px;
+      transform:rotate(-24deg);
+      background:rgba(109,152,146,.16);
+      pointer-events:none;
+      z-index:-5;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      right:-260px;
+      top:-260px;
+      width:620px;
+      height:620px;
+      border-radius:150px;
+      transform:rotate(28deg);
+      background:rgba(143,166,103,.18);
+      pointer-events:none;
+      z-index:-5;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:10px 8px calc(var(--bottom) + 38px);
+      position:relative;
+    }
+
+    .wrap::before{
+      content:"";
+      position:fixed;
+      right:-320px;
+      bottom:110px;
+      width:760px;
+      height:360px;
+      clip-path:polygon(18% 0,100% 34%,86% 100%,0 68%);
+      background:rgba(205,187,158,.14);
+      pointer-events:none;
+      z-index:-4;
+    }
+
+    .card{
+      width:100%;
+      margin:0;
+      border-radius:34px;
+      padding:44px 18px 46px;
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.88);
+      box-shadow:var(--shadow-panel);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      left:22px;
+      top:44px;
+      width:22px;
+      height:104px;
+      border-radius:999px;
+      background:linear-gradient(180deg,var(--teal),var(--green));
+      box-shadow:0 0 0 14px rgba(109,152,146,.12);
+      z-index:1;
+    }
+
+    .card > *{
+      position:relative;
+      z-index:2;
+    }
+
+    .sectionTitle{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin:0 0 56px;
+      padding-left:62px;
+    }
+
+    .sectionTitleText{
+      display:block;
+      color:var(--ink);
+      font-size:72px;
+      line-height:1.15;
+      font-weight:950;
+      letter-spacing:.02em;
+    }
+
+    .sectionBadge{
+      display:none;
+    }
+
+    .q{
+      margin-top:58px;
+    }
+
+    .q:first-of-type{
+      margin-top:0;
+    }
+
+    label{
+      display:block;
+      margin:0 0 22px;
+      color:var(--label);
+      font-size:52px;
+      line-height:1.16;
+      font-weight:950;
+      letter-spacing:.01em;
+    }
+
+    select,
+    input[type="text"],
+    input[type="number"],
+    input[type="password"]{
+      display:block;
+      width:100%;
+      height:138px;
+      min-height:138px;
+      border-radius:34px;
+      border:4px solid var(--line);
+      background:#fff;
+      color:#050505;
+      outline:none;
+      padding:0 92px 0 30px;
+      font-size:50px;
+      font-weight:950;
+      line-height:1.08;
+      box-shadow:var(--shadow-field);
+      appearance:none;
+      -webkit-appearance:none;
+    }
+
+    select{
+      text-align:center;
+      text-align-last:center;
+      background-color:#fff;
+      background-image:
+        linear-gradient(45deg,transparent 50%,var(--brown) 50%),
+        linear-gradient(135deg,var(--brown) 50%,transparent 50%),
+        linear-gradient(to bottom,rgba(109,69,45,.16),rgba(109,69,45,.16));
+      background-position:
+        calc(100% - 56px) 50%,
+        calc(100% - 34px) 50%,
+        calc(100% - 88px) 50%;
+      background-size:
+        22px 22px,
+        22px 22px,
+        2px 72px;
+      background-repeat:no-repeat;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"]{
+      text-align:left;
+    }
+
+    input::placeholder{
+      color:rgba(0,0,0,.28);
+      font-weight:900;
+    }
+
+    select:focus,
+    input:focus{
+      border-color:rgba(143,166,103,.82);
+      box-shadow:
+        0 0 0 8px rgba(143,166,103,.18),
+        var(--shadow-field);
+    }
+
+    .trainBox{
+      min-height:152px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:26px;
+      align-items:center;
+      padding:30px;
+      border-radius:36px;
+      border:2px solid rgba(109,69,45,.12);
+      background:#fff;
+      box-shadow:var(--shadow-field);
+    }
+
+    .trainText .small{
+      color:var(--muted);
+      font-size:30px;
+      line-height:1.25;
+      font-weight:950;
+    }
+
+    .trainText .big{
+      margin-top:10px;
+      color:var(--ink);
+      font-size:48px;
+      line-height:1.12;
+      font-weight:950;
+      word-break:break-word;
+    }
+
+    .btn{
+      width:100%;
+      height:124px;
+      min-height:124px;
+      border-radius:34px;
+      border:4px solid rgba(109,69,45,.16);
+      background:#fff;
+      color:var(--brown);
+      padding:0 26px;
+      font-size:42px;
+      line-height:1;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 14px 30px rgba(54,35,18,.16);
+      white-space:nowrap;
+      transform:none;
+    }
+
+    .btn.primary{
+      border-color:rgba(143,166,103,.30);
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:#fff;
+    }
+
+    .btn.danger{
+      color:var(--danger);
+    }
+
+    .btn:disabled{
+      opacity:.46;
+      cursor:not-allowed;
+    }
+
+    .divider{
+      height:1px;
+      margin:68px 0;
+      background:linear-gradient(to right,transparent,rgba(109,69,45,.22),transparent);
+    }
+
+    .lessonBlock{
+      position:relative;
+      overflow:hidden;
+      margin-top:0;
+      padding:42px 16px 46px;
+      border-radius:40px;
+      background:var(--section);
+      border:1px solid rgba(255,255,255,.90);
+      box-shadow:0 14px 30px rgba(54,35,18,.10);
+    }
+
+    .lessonBlock::before{
+      content:"";
+      position:absolute;
+      left:20px;
+      top:44px;
+      width:22px;
+      height:86px;
+      border-radius:999px;
+      background:rgba(143,166,103,.18);
+      border:4px solid rgba(255,255,255,.70);
+    }
+
+    .lessonTitle{
+      display:block;
+      margin:0 0 50px;
+      padding-left:58px;
+      color:var(--ink);
+      font-size:64px;
+      line-height:1.08;
+      font-weight:950;
+      letter-spacing:.01em;
+    }
+
+    .numberPair{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:46px;
+    }
+
+    .lessonBlock label{
+      font-size:50px;
+    }
+
+    .sticky{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:30;
+      padding:14px 8px calc(14px + env(safe-area-inset-bottom));
+      background:rgba(239,226,207,.94);
+      border-top:1px solid rgba(255,255,255,.76);
+      backdrop-filter:blur(18px);
+      box-shadow:0 -14px 40px rgba(54,35,18,.14);
+    }
+
+    .stickyInner{
+      width:100%;
+      max-width:var(--maxw);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+    }
+
+    .sticky .btn{
+      height:128px;
+      min-height:128px;
+      border-radius:36px;
+      font-size:40px;
+    }
+
+    .sheetMask{
+      position:fixed;
+      inset:0;
+      z-index:60;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding:8px;
+      background:rgba(62,43,28,.36);
+      backdrop-filter:blur(10px);
+    }
+
+    .sheetMask.show{
+      display:flex;
+    }
+
+    .sheet{
+      width:100%;
+      max-width:var(--maxw);
+      max-height:calc(100vh - 16px);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      border-radius:34px;
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.78);
+      box-shadow:0 28px 88px rgba(47,31,18,.28);
+    }
+
+    .sheetHeader{
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:24px 18px;
+      border-bottom:1px solid rgba(109,69,45,.14);
+      background:var(--section);
+    }
+
+    .sheetHeader .t{
+      color:var(--ink);
+      font-size:46px;
+      line-height:1.2;
+      font-weight:950;
+    }
+
+    .sheetHeader .btn{
+      width:auto;
+      min-width:150px;
+      height:98px;
+      min-height:98px;
+      font-size:34px;
+      border-radius:30px;
+    }
+
+    .sheetBody{
+      flex:1 1 auto;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      padding:32px 12px 42px;
+    }
+
+    .sheetBody .q{
+      margin-top:52px;
+    }
+
+    .sheetBody .q:first-child{
+      margin-top:0;
+    }
+
+    .sheetBody .sectionTitle{
+      margin:0 0 30px;
+      padding-left:0;
+    }
+
+    .sheetBody .sectionTitle span,
+    .sheetBody .lessonTitle{
+      color:var(--ink);
+      font-size:54px;
+    }
+
+    .modalActions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:30px;
+    }
+
+    .hint{
+      margin:32px 0 0;
+      color:var(--muted);
+      font-size:34px;
+      line-height:1.55;
+      font-weight:800;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      top:50%;
+      bottom:auto;
+      transform:translate(-50%, -50%);
+      z-index:9999;
+      display:none;
+      width:min(88vw,720px);
+      max-width:720px;
+      padding:42px 34px;
+      border-radius:34px;
+      background:#fff;
+      border:3px solid rgba(143,166,103,.45);
+      box-shadow:0 28px 90px rgba(45,30,18,.30);
+      backdrop-filter:blur(18px);
+    }
+
+    .toast.show{
+      display:block;
+    }
+
+    .toast.ok{
+      border-color:rgba(143,166,103,.45);
+    }
+
+    .toast.bad{
+      border-color:rgba(201,79,67,.48);
+    }
+
+    .toast .msg{
+      color:var(--ink);
+      font-size:60px;
+      line-height:1.25;
+      font-weight:950;
+      text-align:center;
+    }
+
+    @media (min-width:1024px) and (hover:hover) and (pointer:fine){
+      :root{
+        --bottom:112px;
+        --maxw:860px;
+      }
+
+      body{
+        min-height:100vh;
+        background:linear-gradient(135deg,#efe4d3,#f8f0e5);
+      }
+
+      body::before{
+        left:-280px;
+        bottom:-280px;
+        width:560px;
+        height:560px;
+        border-radius:140px;
+        opacity:.72;
+      }
+
+      body::after{
+        right:-320px;
+        top:-320px;
+        width:640px;
+        height:640px;
+        border-radius:160px;
+        opacity:.72;
+      }
+
+      .wrap::before{
+        content:none;
+        display:none;
+      }
+
+      .wrap{
+        max-width:860px;
+        padding:34px 28px calc(112px + 36px);
+      }
+
+      .card{
+        margin:0 auto;
+        width:100%;
+        max-width:860px;
+        border-radius:34px;
+        padding:42px 46px 44px;
+        background:#fff9ef;
+        border:1px solid rgba(255,255,255,.90);
+        box-shadow:0 18px 46px rgba(54,35,18,.14);
+      }
+
+      .card::before{
+        left:34px;
+        top:42px;
+        width:18px;
+        height:76px;
+        box-shadow:0 0 0 10px rgba(109,152,146,.12);
+      }
+
+      .sectionTitle{
+        margin:0 0 34px;
+        padding-left:48px;
+      }
+
+      .sectionTitleText{
+        font-size:42px;
+        line-height:1.18;
+        letter-spacing:.03em;
+      }
+
+      .q{
+        margin-top:30px;
+      }
+
+      label{
+        font-size:28px;
+        line-height:1.32;
+        margin:0 0 12px;
+      }
+
+      select,
+      input[type="text"],
+      input[type="number"],
+      input[type="password"]{
+        height:78px;
+        min-height:78px;
+        border-radius:22px;
+        border-width:2px;
+        padding:0 64px 0 22px;
+        font-size:26px;
+        line-height:1.15;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.95),
+          0 10px 22px rgba(54,35,18,.10);
+      }
+
+      select{
+        text-align:left;
+        text-align-last:left;
+        background-position:
+          calc(100% - 38px) 50%,
+          calc(100% - 24px) 50%,
+          calc(100% - 58px) 50%;
+        background-size:
+          14px 14px,
+          14px 14px,
+          1px 38px;
+      }
+
+      .trainBox{
+        min-height:96px;
+        grid-template-columns:1fr auto;
+        gap:18px;
+        padding:20px 22px;
+        border-radius:24px;
+        background:#fff;
+        box-shadow:0 10px 22px rgba(54,35,18,.10);
+      }
+
+      .trainText .small{
+        font-size:16px;
+        line-height:1.25;
+      }
+
+      .trainText .big{
+        font-size:28px;
+        line-height:1.22;
+      }
+
+      .btn{
+        width:auto;
+        height:72px;
+        min-height:72px;
+        border-radius:22px;
+        border-width:2px;
+        padding:0 28px;
+        font-size:24px;
+        box-shadow:0 10px 22px rgba(54,35,18,.10);
+      }
+
+      #btnOpenSheet{
+        width:auto;
+      }
+
+      .divider{
+        margin:34px 0;
+      }
+
+      .lessonBlock{
+        padding:26px 28px 28px;
+        border-radius:28px;
+        background:#fffdf8;
+        border:1px solid rgba(255,255,255,.90);
+        box-shadow:0 10px 24px rgba(54,35,18,.08);
+      }
+
+      .lessonBlock::before{
+        left:28px;
+        top:28px;
+        width:14px;
+        height:56px;
+      }
+
+      .lessonTitle{
+        font-size:34px;
+        line-height:1.2;
+        margin:0 0 24px;
+        padding-left:38px;
+      }
+
+      .numberPair{
+        grid-template-columns:1fr 1fr;
+        gap:22px;
+      }
+
+      .numberPair label,
+      .lessonBlock label{
+        font-size:24px;
+        margin-bottom:10px;
+      }
+
+      .numberPair input{
+        height:72px;
+        min-height:72px;
+        border-radius:20px;
+        font-size:26px;
+        padding:0 20px;
+      }
+
+      .sticky{
+        padding:12px 20px calc(12px + env(safe-area-inset-bottom));
+      }
+
+      .stickyInner{
+        max-width:860px;
+        gap:16px;
+      }
+
+      .sticky .btn{
+        width:100%;
+        height:74px;
+        min-height:74px;
+        border-radius:24px;
+        font-size:26px;
+      }
+
+      .sheet{
+        max-width:760px;
+        border-radius:30px;
+      }
+
+      .sheetHeader{
+        padding:20px 24px;
+      }
+
+      .sheetHeader .t{
+        font-size:30px;
+      }
+
+      .sheetHeader .btn{
+        min-width:110px;
+        height:64px;
+        min-height:64px;
+        font-size:22px;
+      }
+
+      .sheetBody{
+        padding:24px 28px 30px;
+      }
+
+      .sheetBody .q{
+        margin-top:28px;
+      }
+
+      .sheetBody .sectionTitle span,
+      .sheetBody .lessonTitle{
+        font-size:32px;
+      }
+
+      .modalActions{
+        gap:14px;
+        margin-top:18px;
+      }
+
+      .hint{
+        font-size:18px;
+        line-height:1.65;
+        margin-top:18px;
+      }
+
+      .toast{
+        width:min(70vw,620px);
+        padding:32px 28px;
+        border-radius:30px;
+      }
+
+      .toast .msg{
+        font-size:36px;
+        line-height:1.25;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="sectionTitle">
+        <div class="sectionTitleText">夜間班人數回報</div>
+        <div class="sectionBadge">夜間班</div>
+      </div>
+
+      <div class="q">
+        <label>年度訓練</label>
+
+        <div class="trainBox">
+          <div class="trainText">
+            <div class="small">目前設定</div>
+            <div id="trainingDisplay" class="big">尚未設定</div>
+          </div>
+
+          <button id="btnOpenSheet" class="btn primary" type="button">設定</button>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>天數</label>
+        <select id="dayNo">
+          <option value="">請選擇</option>
+          <option value="第1天">第1天</option>
+          <option value="第2天">第2天</option>
+          <option value="第3天">第3天</option>
+          <option value="第4天">第4天</option>
+          <option value="第5天">第5天</option>
+          <option value="第6天">第6天</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label>照顧區</label>
+        <select id="careArea"></select>
+      </div>
+
+      <div class="q">
+        <label>場地</label>
+        <select id="venue"></select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lessonBlock">
+        <div class="lessonTitle">第一堂</div>
+
+        <div class="numberPair">
+          <div>
+            <label>參加人數</label>
+            <input id="s1Total" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="0" />
+          </div>
+
+          <div>
+            <label>青職人數</label>
+            <input id="s1Young" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="0" />
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lessonBlock">
+        <div class="lessonTitle">第二堂</div>
+
+        <div class="numberPair">
+          <div>
+            <label>參加人數</label>
+            <input id="s2Total" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="0" />
+          </div>
+
+          <div>
+            <label>青職人數</label>
+            <input id="s2Young" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="0" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="sticky">
+    <div class="stickyInner">
+      <button id="btnSubmit" class="btn primary" type="button">送出回報</button>
+      <button id="btnReset" class="btn" type="button">清空</button>
+    </div>
+  </div>
+
+  <div id="sheetMask" class="sheetMask" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="設定年度訓練">
+      <div class="sheetHeader">
+        <div class="t">設定年度訓練</div>
+        <button id="btnCloseSheet" class="btn" type="button">關閉</button>
+      </div>
+
+      <div class="sheetBody">
+        <div class="q">
+          <label>年份</label>
+          <input id="manualYear" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="例如：2026" />
+        </div>
+
+        <div class="q">
+          <label>月份</label>
+          <select id="manualMonth">
+            <option value="">請選擇</option>
+            <option value="7">7</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+
+        <div class="hint">
+          說明：年度訓練一旦設定就固定；要重新設定必須輸入密碼。
+        </div>
+
+        <div class="modalActions">
+          <button id="btnApplyManual" class="btn primary" type="button">套用</button>
+          <button id="btnClearTraining" class="btn danger" type="button">清除</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="q">
+          <div class="lessonTitle">修改密碼</div>
+
+          <label>現有密碼</label>
+          <input id="pwdOld" type="password" inputmode="numeric" placeholder="輸入現有密碼" />
+
+          <div class="q">
+            <label>新密碼</label>
+            <input id="pwdNew" type="password" inputmode="numeric" placeholder="輸入新密碼" />
+          </div>
+
+          <div class="q">
+            <label>確認新密碼</label>
+            <input id="pwdNew2" type="password" inputmode="numeric" placeholder="再輸入一次新密碼" />
+          </div>
+
+          <div class="q">
+            <button id="btnChangePwd" class="btn primary" type="button" style="width:100%;">確認修改密碼</button>
+          </div>
+
+          <div class="hint">
+            需先輸入現有密碼才能修改。預設密碼：76236250
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">
+    <div class="msg" id="toastMsg"></div>
+  </div>
+
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwrKwInJYtEC66KE9jxm5bbBonn35z8G1j_sUCPniBItciGez2gv1WVdkrMDYoPywzc/exec';
+
+    const $ = (id) => document.getElementById(id);
+
+    let trainingText = '';
+    let careAreaToVenues = {};
+    let adminPass = '';
+
+    function apiCall(api, params = {}){
+      return new Promise((resolve, reject)=>{
+        const callbackName =
+          '__gas_jsonp_' +
+          Date.now().toString(36) +
+          '_' +
+          Math.random().toString(36).slice(2);
+
+        const url = new URL(API_URL);
+
+        url.searchParams.set('api', api);
+        url.searchParams.set('callback', callbackName);
+
+        Object.keys(params || {}).forEach((key)=>{
+          const value = params[key];
+
+          if (value === undefined || value === null) return;
+
+          url.searchParams.set(key, String(value));
+        });
+
+        const script = document.createElement('script');
+
+        let done = false;
+
+        const timer = setTimeout(()=>{
+          cleanup();
+          reject(new Error('API 連線逾時'));
+        }, 30000);
+
+        function cleanup(){
+          if (done) return;
+          done = true;
+
+          clearTimeout(timer);
+
+          try {
+            delete window[callbackName];
+          } catch (e) {
+            window[callbackName] = undefined;
+          }
+
+          if (script && script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }
+
+        window[callbackName] = (data)=>{
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror = ()=>{
+          cleanup();
+          reject(new Error('API 連線失敗，請確認 GAS 已重新部署為新版'));
+        };
+
+        script.src = url.toString();
+
+        document.body.appendChild(script);
+      });
+    }
+
+    function showToast(msg, ok=true){
+      const t = $('toast');
+      const text = String(msg ?? '');
+
+      $('toastMsg').textContent = text;
+
+      t.classList.remove('ok','bad','show');
+      t.classList.add(ok ? 'ok' : 'bad', 'show');
+
+      clearTimeout(showToast._tm);
+
+      showToast._tm = setTimeout(()=>{
+        t.classList.remove('show');
+      }, 2600);
+    }
+
+    function setLoadState(text){
+      // GitHub 版沒有固定顯示 loadState 區塊時仍保留
+      const el = $('loadState');
+      if (el) el.textContent = text;
+    }
+
+    function setSelectOptions(selectEl, arr, placeholder='請選擇'){
+      selectEl.innerHTML = '';
+
+      const opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = placeholder;
+      selectEl.appendChild(opt0);
+
+      (arr || []).forEach(v=>{
+        const o = document.createElement('option');
+        o.value = v;
+        o.textContent = v;
+        selectEl.appendChild(o);
+      });
+    }
+
+    function setTrainingDisplay(){
+      $('trainingDisplay').textContent = trainingText || '尚未設定';
+    }
+
+    function openSheet(){
+      $('sheetMask').classList.add('show');
+      $('sheetMask').setAttribute('aria-hidden','false');
+    }
+
+    function closeSheet(){
+      $('sheetMask').classList.remove('show');
+      $('sheetMask').setAttribute('aria-hidden','true');
+
+      adminPass = '';
+
+      $('pwdOld').value = '';
+      $('pwdNew').value = '';
+      $('pwdNew2').value = '';
+    }
+
+    function buildTrainingText(year, month){
+      return `${year}年${month}月半年度訓練`;
+    }
+
+    function resetForm(){
+      $('dayNo').value = '';
+      $('careArea').value = '';
+
+      setSelectOptions($('venue'), [], '請先選照顧區');
+
+      $('s1Total').value = '';
+      $('s1Young').value = '';
+      $('s2Total').value = '';
+      $('s2Young').value = '';
+    }
+
+    function getCleanValue(id){
+      return String($(id).value || '').trim();
+    }
+
+    function validateNonNegInt(val, label){
+      const s = String(val ?? '').trim();
+
+      if (s === '') return `${label} 不可空白`;
+      if (!/^\d+$/.test(s)) return `${label} 必須是非負整數`;
+
+      return '';
+    }
+
+    function collectPayload(){
+      const payload = {
+        trainingText: String(trainingText || '').trim(),
+        dayNo: getCleanValue('dayNo'),
+        careArea: getCleanValue('careArea'),
+        venue: getCleanValue('venue'),
+        s1Total: getCleanValue('s1Total'),
+        s1Young: getCleanValue('s1Young'),
+        s2Total: getCleanValue('s2Total'),
+        s2Young: getCleanValue('s2Young')
+      };
+
+      if (!payload.trainingText) return {ok:false, msg:'請先設定年度訓練'};
+      if (!payload.dayNo) return {ok:false, msg:'請選擇天數'};
+      if (!payload.careArea) return {ok:false, msg:'請選擇照顧區'};
+      if (!payload.venue) return {ok:false, msg:'請選擇場地'};
+
+      let e = '';
+
+      e = validateNonNegInt(payload.s1Total,'第一堂參加人數');
+      if (e) return {ok:false, msg:e};
+
+      e = validateNonNegInt(payload.s1Young,'第一堂青職人數');
+      if (e) return {ok:false, msg:e};
+
+      e = validateNonNegInt(payload.s2Total,'第二堂參加人數');
+      if (e) return {ok:false, msg:e};
+
+      e = validateNonNegInt(payload.s2Young,'第二堂青職人數');
+      if (e) return {ok:false, msg:e};
+
+      return {
+        ok:true,
+        payload:{
+          trainingText: payload.trainingText,
+          dayNo: payload.dayNo,
+          careArea: payload.careArea,
+          venue: payload.venue,
+          s1Total: payload.s1Total,
+          s1Young: payload.s1Young,
+          s2Total: payload.s2Total,
+          s2Young: payload.s2Young
+        }
+      };
+    }
+
+    function setSubmitting(isSubmitting){
+      $('btnSubmit').disabled = isSubmitting;
+      $('btnReset').disabled = isSubmitting;
+      $('btnOpenSheet').disabled = isSubmitting;
+
+      $('btnCloseSheet').disabled = isSubmitting;
+      $('btnApplyManual').disabled = isSubmitting;
+      $('btnClearTraining').disabled = isSubmitting;
+      $('btnChangePwd').disabled = isSubmitting;
+
+      $('careArea').disabled = isSubmitting;
+      $('venue').disabled = isSubmitting;
+      $('dayNo').disabled = isSubmitting;
+
+      $('s1Total').disabled = isSubmitting;
+      $('s1Young').disabled = isSubmitting;
+      $('s2Total').disabled = isSubmitting;
+      $('s2Young').disabled = isSubmitting;
+    }
+
+    function updateVenueByCareArea(){
+      const care = $('careArea').value.trim();
+      const venues = (care && careAreaToVenues && careAreaToVenues[care])
+        ? careAreaToVenues[care]
+        : [];
+
+      setSelectOptions($('venue'), venues, care ? '請選擇' : '請先選照顧區');
+
+      $('venue').value = '';
+    }
+
+    function promptPasswordOnce_(){
+      const p = window.prompt('請輸入密碼');
+
+      if (p === null) return '';
+
+      return String(p).trim();
+    }
+
+    function init(){
+      setLoadState('載入中');
+
+      apiCall('initData')
+        .then((res)=>{
+          if (!res || !res.ok){
+            setLoadState('失敗');
+            showToast(res?.message || '初始化失敗', false);
+            return;
+          }
+
+          trainingText = (res.trainingText || '').trim();
+          setTrainingDisplay();
+
+          careAreaToVenues = res.careAreaToVenues || {};
+
+          setSelectOptions($('careArea'), res.careAreas || []);
+          setSelectOptions($('venue'), [], '請先選照顧區');
+
+          setLoadState('就緒');
+        })
+        .catch((err)=>{
+          setLoadState('失敗');
+          showToast(String(err.message || err), false);
+        });
+    }
+
+    $('careArea').addEventListener('change', updateVenueByCareArea);
+
+    $('btnOpenSheet').addEventListener('click', ()=>{
+      const p = promptPasswordOnce_();
+
+      if (!p) return;
+
+      setSubmitting(true);
+
+      apiCall('verifyPassword', {
+        password: p
+      })
+        .then((res)=>{
+          setSubmitting(false);
+
+          if (!res || !res.ok){
+            showToast(res?.message || '密碼錯誤', false);
+            return;
+          }
+
+          adminPass = p;
+
+          const m = (trainingText || '').match(/^(\d{4})年(7|12)月半年度訓練$/);
+
+          $('manualYear').value = m ? m[1] : '';
+          $('manualMonth').value = m ? m[2] : '';
+          $('pwdOld').value = adminPass;
+
+          openSheet();
+          showToast('已進入設定模式', true);
+        })
+        .catch((err)=>{
+          setSubmitting(false);
+          showToast(String(err.message || err), false);
+        });
+    });
+
+    $('btnCloseSheet').addEventListener('click', closeSheet);
+
+    $('sheetMask').addEventListener('click', (e)=>{
+      if (e.target === $('sheetMask')) closeSheet();
+    });
+
+    $('btnApplyManual').addEventListener('click', ()=>{
+      if (!adminPass) return showToast('請先輸入密碼進入設定模式', false);
+
+      const y = String($('manualYear').value || '').trim();
+      const m = String($('manualMonth').value || '').trim();
+
+      if (!/^\d{4}$/.test(y)) return showToast('年份請輸入 4 位數，例如 2026', false);
+      if (!/^(7|12)$/.test(m)) return showToast('月份請選 7 或 12', false);
+
+      const newText = buildTrainingText(y, m);
+
+      setSubmitting(true);
+
+      apiCall('setTrainingText', {
+        trainingText: newText,
+        password: adminPass
+      })
+        .then((res)=>{
+          setSubmitting(false);
+
+          if (!res || !res.ok){
+            showToast(res?.message || '套用失敗', false);
+            return;
+          }
+
+          trainingText = (res.trainingText || newText).trim();
+          setTrainingDisplay();
+
+          showToast('已套用年度訓練', true);
+          closeSheet();
+        })
+        .catch((err)=>{
+          setSubmitting(false);
+          showToast(String(err.message || err), false);
+        });
+    });
+
+    $('btnClearTraining').addEventListener('click', ()=>{
+      if (!adminPass) return showToast('請先輸入密碼進入設定模式', false);
+
+      setSubmitting(true);
+
+      apiCall('clearTrainingText', {
+        password: adminPass
+      })
+        .then((res)=>{
+          setSubmitting(false);
+
+          if (!res || !res.ok){
+            showToast(res?.message || '清除失敗', false);
+            return;
+          }
+
+          trainingText = '';
+          setTrainingDisplay();
+
+          showToast('已清除年度訓練', true);
+          closeSheet();
+        })
+        .catch((err)=>{
+          setSubmitting(false);
+          showToast(String(err.message || err), false);
+        });
+    });
+
+    $('btnChangePwd').addEventListener('click', ()=>{
+      const oldP = String($('pwdOld').value || '').trim();
+      const newP = String($('pwdNew').value || '').trim();
+      const newP2 = String($('pwdNew2').value || '').trim();
+
+      if (!oldP) return showToast('請輸入現有密碼', false);
+      if (!newP) return showToast('請輸入新密碼', false);
+      if (newP !== newP2) return showToast('兩次新密碼不一致', false);
+      if (newP.length < 6) return showToast('新密碼至少 6 碼', false);
+
+      setSubmitting(true);
+
+      apiCall('changePassword', {
+        oldPassword: oldP,
+        newPassword: newP
+      })
+        .then((res)=>{
+          setSubmitting(false);
+
+          if (!res || !res.ok){
+            showToast(res?.message || '修改失敗', false);
+            return;
+          }
+
+          adminPass = newP;
+
+          $('pwdOld').value = newP;
+          $('pwdNew').value = '';
+          $('pwdNew2').value = '';
+
+          showToast('密碼已修改', true);
+        })
+        .catch((err)=>{
+          setSubmitting(false);
+          showToast(String(err.message || err), false);
+        });
+    });
+
+    $('btnReset').addEventListener('click', ()=>{
+      resetForm();
+      showToast('已清空', true);
+    });
+
+    $('btnSubmit').addEventListener('click', ()=>{
+      const v = collectPayload();
+
+      if (!v.ok) return showToast(v.msg, false);
+
+      const payloadSnapshot = {
+        trainingText: v.payload.trainingText,
+        dayNo: v.payload.dayNo,
+        careArea: v.payload.careArea,
+        venue: v.payload.venue,
+        s1Total: String(v.payload.s1Total || '').trim(),
+        s1Young: String(v.payload.s1Young || '').trim(),
+        s2Total: String(v.payload.s2Total || '').trim(),
+        s2Young: String(v.payload.s2Young || '').trim()
+      };
+
+      setSubmitting(true);
+
+      apiCall('submitReport', {
+        payload: JSON.stringify(payloadSnapshot)
+      })
+        .then((res)=>{
+          setSubmitting(false);
+
+          if (!res || !res.ok){
+            showToast(res?.message || '送出失敗', false);
+            return;
+          }
+
+          showToast(res.message || '送出成功', true);
+          resetForm();
+        })
+        .catch((err)=>{
+          setSubmitting(false);
+          showToast(String(err.message || err), false);
+        });
+    });
+
+    init();
+  </script>
+</body>
+</html>
